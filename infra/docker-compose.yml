@@ -8,5 +8,5 @@ services:
       POSTGRES_PASSWORD: password
       PGDATA: /pgdata
     volumes:
-      - /Users/kunalbhatia/Desktop/super-30/time-scale-db:/pgdata
+      - /Use  rs/kunalbhatia/Desktop/super-30/time-scale-db:/pgdata
     restart: unless-stopped
