@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState } from "react";
-import { CandleChart } from "../components/candle-chart";
 import { CandleApiData, isoToUTCTimestamp } from "../utils";
 import { CandlestickData } from "lightweight-charts";
 
@@ -15,17 +14,13 @@ export default function Home() {
   
   useEffect(() => {
     const ws = new WebSocket(
-      // "ws://localhost:8080"
-      "wss://stream.binance.com:9443/stream?streams=btcusdt@bookTicker"
+      "ws://localhost:8080"
     );
 
     ws.onmessage = (event) => {
-    // const {bid,ask} = JSON.parse(event.data);
-    const {b: bid,a: ask} = JSON.parse(event.data).data;
-    console.log(JSON.parse(event.data).data);
+    const {bid,ask} = JSON.parse(event.data);
     setBookTicker({bid, ask, markup: 1, dynamicSpread: ask - bid})
     }
-
 
     return () => {
       ws.close();
@@ -59,7 +54,7 @@ export default function Home() {
           <h3>Original Binance Data</h3>
           <div>Bid: ${bookTicker.bid}</div>
           <div>Ask: ${bookTicker.ask}</div>
-          <div>Spread: ${(bookTicker.ask - bookTicker.bid)} USD</div>
+          <div>Spread: ${(bookTicker.ask - bookTicker.bid).toFixed(2)} USD</div>
         </div>
       )}
 
